@@ -1,3 +1,4 @@
+// Jokes.js
 const mongoose = require('mongoose');
 
 const joke = new mongoose.Schema({
