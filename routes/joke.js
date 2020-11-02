@@ -49,3 +49,9 @@ function sendStatus(e, response) {
 }
 
 module.exports = router;
+
+async function createjokefunc(){
+    await controller.createJoke('Test fra per setup', 'Tester Pers :D punchline')
+}
+
+createjokefunc()

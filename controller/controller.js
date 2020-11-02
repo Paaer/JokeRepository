@@ -20,3 +20,5 @@ exports.getJokes = function () {
 
 
 
+// this.createJoke('test setup', 'Haha sjov punchline');
+
