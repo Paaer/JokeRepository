@@ -33,7 +33,7 @@ async function generateJokesTable(jokes) {
 async function main() {
     try {
         let jokes = await get('/joke/api/jokes');
-        let div = document.getElementById('div1')
+        let div = document.getElementById('JokeDiv')
         div.innerHTML = await generateJokesTable(jokes);
     } catch (e) {
         console.log(e.name + ": " + e.message);
@@ -41,11 +41,16 @@ async function main() {
 }
 main();
 
-let opretButton = document.getElementById('opretButton')
+
+let punchlineInput = document.getElementById('punchline');
+let setupInput = document.getElementById('setup');
+let opretButton = document.getElementById('opretButton');
 
 opretButton.onclick = async () => {
+    let setup = setupInput.value;
+    let punchline = punchlineInput.value;
     try {
-        await post("/joke/api/jokes", { setup: 'setup.value', punchline: 'punchline.value' });
+        await post("/joke/api/jokes", { setup: setup, punchline: punchline });
     } catch (e) {
     }
 }

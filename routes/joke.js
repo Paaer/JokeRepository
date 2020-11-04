@@ -47,8 +47,8 @@ function sendStatus(e, response) {
 
 module.exports = router;
 
-async function createjokefunc(){
-    await controller.createJoke('Alle børnene slap ud af fængslet', 'Undtaget Peter, han nåede kun 500 meter')
-}
+// async function createjokefunc(){
+//     await controller.createJoke('Alle børnene slap ud af fængslet', 'Undtaget Peter, han nåede kun 500 meter')
+// }
 
-// createjokefunc()
+// // createjokefunc()
