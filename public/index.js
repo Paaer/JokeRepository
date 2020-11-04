@@ -77,13 +77,3 @@ function createSelect(result) {
 }
 getSites()
 
-async function generateSelect() {
-    try {
-        let sites = await get('https://krdo-joke-registry.herokuapp.com/api/services')
-        return sites
-    }
-    catch (e) {
-        console.log(e)
-    }
-}
-
