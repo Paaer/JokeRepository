@@ -30,16 +30,16 @@ async function generateJokesTable(jokes) {
     return compiledTemplate({ jokes });
 }
 
-async function main() {
+async function main(url) {
     try {
-        let jokes = await get('/api/jokes');
+        let jokes = await get(url);
         let div = document.getElementById('JokeDiv')
         div.innerHTML = await generateJokesTable(jokes);
     } catch (e) {
         console.log(e.name + ": " + e.message);
     }
 }
-main();
+main('/api/jokes');
 
 
 let punchlineInput = document.getElementById('punchline');
@@ -57,7 +57,7 @@ opretButton.onclick = async () => {
         }
         setupInput.value = '';
         punchlineInput.value = '';
-        main();
+        main('/api/jokes');
     }
 }
 
@@ -79,10 +79,10 @@ async function getSites() {
     }
 }
 
+let siteArray = []
 function createSelect(result) {
-    let siteArray = []
     for (let i = 0; i < result.length; i++) {
-        siteArray.push(result[i].address)
+        siteArray.push(result[i].name)
         console.log(siteArray[i])
         let option = document.createElement('option')
         option.text = siteArray[i]
@@ -90,4 +90,20 @@ function createSelect(result) {
     }
 }
 getSites();
+
+
+selectSite.onchange = async () => {
+    let selectedName = selectSite.value;
+    let id;
+    let selectedAddress;
+    for (site of siteArray) {
+        if (site.name === selectedName) {
+            id = site._id
+            selectedAddress = site.address
+        }
+    }
+    let jokes = await get('/api/otherjokes' + selectedAddress);
+    let div = document.getElementById('JokeDiv')
+    div.innerHTML = await generateJokesTable(jokes);
+}
 
