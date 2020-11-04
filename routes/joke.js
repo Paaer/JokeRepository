@@ -14,7 +14,8 @@ router
     })
     .get('/api/othersites', async (request, response) => {
         try {
-
+            let jokes = await get('https://krdo-joke-registry.herokuapp.com/');
+            response.send(jokes);
         } catch (e) {
             sendStatus(e, response);
         }

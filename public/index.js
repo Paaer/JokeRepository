@@ -45,14 +45,25 @@ main();
 let punchlineInput = document.getElementById('punchline');
 let setupInput = document.getElementById('setup');
 let opretButton = document.getElementById('opretButton');
+let rydButton = document.getElementById('clear');
 
 opretButton.onclick = async () => {
     let setup = setupInput.value;
     let punchline = punchlineInput.value;
-    try {
-        await post("/joke/api/jokes", { setup: setup, punchline: punchline });
-    } catch (e) {
+    if (setup && punchline) {
+        try {
+            await post("/joke/api/jokes", { setup: setup, punchline: punchline });
+        } catch (e) {
+        }
+        setupInput.value = '';
+        punchlineInput.value = '';
+        main();
     }
+}
+
+rydButton.onclick = () => {
+    setupInput.value = '';
+    punchlineInput.value = '';
 }
 
 let selectSite = document.getElementById('selectSite')
@@ -70,7 +81,6 @@ async function getSites() {
 
 function createSelect(result) {
     let siteArray = []
-    console.log(result)
     for (let i = 0; i < result.length; i++) {
         siteArray.push(result[i].address)
         console.log(siteArray[i])
@@ -78,7 +88,6 @@ function createSelect(result) {
         option.text = siteArray[i]
         selectSite.add(option, i)
     }
-
 }
-getSites()
+getSites();
 
