@@ -14,13 +14,13 @@ describe('integration test - promise', function () {
     });
 
     it("get('/jokes') test", async () => {
-        let respones = await request(app)
+        let response = await request(app)
             .get('/jokes')
             .expect(200)
             .expect('Content-Type', /json/);
         response.body.length.should.be.greaterThanOrEqual(1);
-        response.body[1].setup.should.be.equal('Hvad er mågernes ynglings betalings måde?')
-        response.body[1].punchline.should.be.equal('Mågebilepay')
+        response.body[1].setup.should.be.equal('setup.value')
+        response.body[1].punchline.should.be.equal('punchline.value')
     })
 
     it("post('/jokes') test", async () => {
@@ -35,8 +35,8 @@ describe('integration test - promise', function () {
             .expect(200);
         response = await controller.getJokes(); 
         response.length.should.be.greaterThanOrEqual(1); 
-        response[0].setup.should.be.equal('Hvad kalder man to lamaer på en scooter')
-        response[0].punchline.should.be.equal('Balamaer');
+        response[0].setup.should.be.equal('Test fra per setup')
+        response[0].punchline.should.be.equal('Tester Pers :D punchline');
         
     })
 });
