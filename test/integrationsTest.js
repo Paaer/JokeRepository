@@ -4,7 +4,7 @@ const controller = require('../controller/controller');
 const app = require('../app.js');
 const { response } = require('../app.js');
 
-describe('integration test - promise', function () {
+describe('integration test - promise', function ()  {
 
     it("get('/') test", function (){
         return request(app)
@@ -13,9 +13,9 @@ describe('integration test - promise', function () {
             .expect('Content-Type', /html/);
     });
 
-    it("get('/jokes') test", async () => {
+    it("get('/api/jokes') test", async () => {
         let response = await request(app)
-            .get('/jokes')
+            .get('/api/jokes')
             .expect(200)
             .expect('Content-Type', /json/);
         response.body.length.should.be.greaterThanOrEqual(1);
@@ -25,14 +25,14 @@ describe('integration test - promise', function () {
 
     it("post('/jokes') test", async () => {
         let response = await request(app)
-            .post('/jokes')
+            .post('/api/jokes')
             .send({
                 'punchline': 'Hvad kalder man to lamaer på en scooter', 
                 'setup': 'Balamaer'
             })
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
-            .expect(200);
+            .expect(201);
         response = await controller.getJokes(); 
         response.length.should.be.greaterThanOrEqual(1); 
         response[0].setup.should.be.equal('Test fra per setup')
