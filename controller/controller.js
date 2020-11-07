@@ -19,4 +19,3 @@ exports.getJoke = function (jokeId) {
 exports.getJokes = function () {
     return Joke.find().populate('joke').exec();
 };
-

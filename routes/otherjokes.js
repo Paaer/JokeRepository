@@ -12,25 +12,37 @@ async function get(url) {
 }
 
 router
-
     .get('/:site', async (request, response) => {
         try {
-            let result = await get("/api/othersites")
+            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
             for (site of result) {
-                if (site.id === request.params.site) {
-                    response.send(site.address + '/api/jokes')
+                if (site._id == request.params.site) {
+                    let url = site.address
+                    if(url[url.length - 1] != '/'){
+                        url += '/'
+                    }
+                    result = await get(url + 'api/jokes')
                 }
             }
             response.send(result)
         } catch (e) {
             sendStatus(e, response);
         }
+
     })
 
 function sendStatus(e, response) {
     console.error("Exception: " + e);
     if (e.stack) console.error(e.stack);
     response.status(500).send(e);
+}
+
+function isJson(str) {
+    try {
+        return JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
 }
 
 module.exports = router;
